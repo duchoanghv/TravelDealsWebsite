@@ -100,7 +100,7 @@
             // How zoomed in you want the map to start at (always required)
             zoom: 11,
             // The latitude and longitude to center the map (always required)
-            center: new google.maps.LatLng(40.6700, -73.9400),
+            center: new google.maps.LatLng(21.394579, 103.023660),
             // New York
             // How you would like to style the map. 
             // This is where you would paste any style found on Snazzy Maps.
@@ -167,13 +167,13 @@
         };
         var map = new google.maps.Map(element, mapOptions);
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(40.6700, -73.9400),
+            position: new google.maps.LatLng(21.394579, 103.023660),
             map: map,
             icon: icon,
             title: 'Snazzy!'
         });
         var infowindow = new google.maps.InfoWindow({
-            content: '1425 Pointe Lane, Miami<br />Florida – 33169, USA'
+            content: 'TP Điện Biên Phủ, Điện Biên, VN'
         });
         marker.addListener('click', function() {
             infowindow.open(map, marker);

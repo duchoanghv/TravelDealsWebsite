@@ -1,4 +1,8 @@
-﻿namespace TravelDealsWebsite
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.Extensions.FileProviders;
+
+namespace TravelDealsWebsite
 {
     public class Startup
     {
@@ -13,6 +17,13 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
+            services.AddHttpContextAccessor();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,7 +41,7 @@
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -41,6 +52,13 @@
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(env.ContentRootPath, "Assets")
+            //    // Or some other absolute path. 
+            //    )
+            //});
         }
     }
 }

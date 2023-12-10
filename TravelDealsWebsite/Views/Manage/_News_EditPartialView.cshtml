@@ -1,0 +1,118 @@
+﻿@model News
+
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <img src="@Model.Img" class="img-rounded" width="380" height="236">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="rn-input-group">
+            <label>Ngày đăng</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-clock"></i>
+                <input type="text" name="PostDay" placeholder="Ngày đăng" value="@Model.PostDay" required>
+            </div>
+        </div>
+    </div><div class="col-6">
+        <div class="rn-input-group">
+            <label>Tháng, năm đăng</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-calendar"></i>
+                <input type="text" name="PostMonth" placeholder="Tháng, năm đăng" value="@Model.PostMonth" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Tiêu đề</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-mobile"></i>
+                <input type="text" name="Title" placeholder="Tiêu đề" value="@Model.Title" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Nguồn</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-mobile"></i>
+                <input type="text" name="Site" placeholder="Nguồn" value="@Model.Site" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Tác giả</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-mobile"></i>
+                <input type="text" name="Author" placeholder="Tác giả" value="@Model.Author" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Link bài</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-mobile"></i>
+                <input type="text" name="LinkUrl" placeholder="Link bài" value="@Model.LinkUrl" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Mô tả</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-envelope"></i>
+                <textarea name="Description" placeholder="Mô tả" rows="3" value="@Model.Description" required>@Model.Description</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="rn-input-group">
+            <label>Ảnh mô tả</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-globe"></i>
+                <input type="text" value="@Model.Img" disabled>
+            </div>
+            <input type="file" name="ImgFiles" placeholder="Chọn file">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="rn-input-group">
+            <label>Lượt like</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-clock"></i>
+                <input type="text" name="Like" placeholder="Lượt like" value="@Model.Like" required>
+            </div>
+        </div>
+    </div><div class="col-6">
+        <div class="rn-input-group">
+            <label>Lượt view</label>
+            <div class="rn-icon-input">
+                <i class="fa fa-calendar"></i>
+                <input type="text" name="View" placeholder="Lượt view" value="@Model.View" required>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-right">
+    <input class="btn btn-main btn-lg btn-shadow" type="submit" value="Lưu">
+    <input class="btn btn-main btn-lg btn-shadow" type="button" value="Nhập lại" onclick="SelectNews('')">
+</div>

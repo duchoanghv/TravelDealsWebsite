@@ -10,11 +10,28 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.15" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Manage\BookContact.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Manage\News.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\news\" />
   </ItemGroup>
 
 </Project>

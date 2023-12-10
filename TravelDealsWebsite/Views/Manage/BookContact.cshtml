@@ -1,0 +1,95 @@
+﻿@model MainData
+<script>
+    function Login() {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/Login',
+            data: $('#frm-login').serialize(),
+            success: function (data) {
+                if (data == "1") {
+                    location.reload();
+                }
+                else {
+                    alert("Thông tin đăng nhập chưa đúng");
+                }
+            }
+        })
+    }
+</script>
+
+<div class="rn-page-title" id="rn-page-cart">
+    <div class="rn-pt-overlayer"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rn-page-title-inner">
+                    <h1>Thông tin liên hệ khách hàng để lại</h1>
+                    <p>Nơi quản trị viên có thể liên hệ lại với khách hàng.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Content-->
+<section class="rn-section">
+    <div class="container">
+        @if (!Model.IsAuthenticated)
+        {
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="rn-simple-title">Bạn cần đăng nhập để sử dụng trang này</h2>
+                    <div class="rn-contact-form">
+                        <form id="frm-login" action="/Home/Login" method="post">
+                            <div class="row mb-30">
+                                <div class="col-6">
+                                    <div class="rn-icon-input">
+                                        <i class="fa fa-user"></i>
+                                        <input type="text" name="userName" placeholder="Tên đăng nhập" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="rn-icon-input">
+                                        <i class="fa fa-lock"></i>
+                                        <input type="password" name="pass" placeholder="Mật khẩu" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <input class="btn btn-main btn-lg btn-shadow" type="submit" value="Đăng nhập">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Thời gian liên hệ</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Email</th>
+                                <th scope="col" style="width:30%">Nội dung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tour in Model.BookContacts)
+                            {
+                                <tr>
+                                    <th scope="col">@tour.RequestDate?.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                                    <th scope="col" data-tooltip="Bấm vào để liên hệ tư vấn ngay"><a href="@("tel:"+@tour.Phone)" style="text-decoration:underline">@tour.Phone</a></th>
+                                    <th scope="col">@tour.Email</th>
+                                    <th scope="col">@tour.Note</th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!-- End Page Content-->

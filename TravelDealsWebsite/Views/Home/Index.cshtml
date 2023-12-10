@@ -1,50 +1,28 @@
-﻿<!-- Slider-->
+﻿@model MainData
+<!-- Slider-->
 <div class="rn-carousel carousel slide" id="carouselExampleControls" data-ride="carousel">
     <div class="carousel-inner">
-
-        <!-- Slider Item 1-->
-        <div class="carousel-item beactive">
-            <div class="carousel-caption">
-                <h2 class="rn-fade-bottom mb-25">Khám phá thành phố Điện Biên</h2>
-                <p class="rn-fade-bottom rn-caption-item-2 mb-35">Thành phố với nhiều di tích lịch sử gắn với chiến thắng Điện Bên Phủ.</p>
-                <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="/Product/ProductDetail">Liên hệ tư vấn ngay</a>
+        @foreach (var slider in Model.BannerSliders)
+        {
+            <div class="@($"carousel-item " + (Model.BannerSliders.IndexOf(slider) == 0 ? "beactive" : ""))">
+                <div class="carousel-caption">
+                    <h2 class="rn-fade-bottom mb-25">@slider.Title</h2>
+                    <p class="rn-fade-bottom rn-caption-item-2 mb-35">@slider.Description</p>
+                    <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer" data-tooltip="Bấm vào để liên hệ tư vấn ngay">Liên hệ ngay</a>
+                </div>
+                <div class="rn-slider-overlayer"></div>
+                <img class="d-block w-100" src="@(slider.Img)" alt="slide">
             </div>
-            <div class="rn-slider-overlayer"></div>
-            <img class="d-block w-100" src="~/assets/images/customs/slide_001.jpg" alt="slide">
-        </div>
-
-        <!-- Slider Item 2-->
-        <div class="carousel-item">
-            <div class="carousel-caption">
-                <h2 class="rn-fade-bottom mb-25">Chinh phục Pa A Chải hùng vĩ</h2>
-                <p class="rn-fade-bottom rn-caption-item-2 mb-35">Với những bạn trẻ đam mê phượt và leo núi mạo hiểm thì Pa A Chải chính là địa điểm du lịch Điện Biên không thể bỏ lỡ.</p>
-                <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="/Product/ProductDetail">Liên hệ tư vấn ngay</a>
-            </div>
-            <div class="rn-slider-overlayer"></div>
-            <img class="d-block w-100" src="~/assets/images/customs/slide_002.jpg" alt="slide">
-        </div>
-
-        <!-- Slider Item 3-->
-        <div class="carousel-item">
-            <div class="carousel-caption">
-                <h2 class="rn-fade-bottom mb-25">Mường Nhé - Khu bảo tồn thiên nhiên duy nhất ở Điện Biên</h2>
-                <p class="rn-fade-bottom rn-caption-item-2 mb-35">Khu bảo tồn đã có tổng diện tích gần 310.262 ha, khoảng 118.000 ha đất rừng nguyên sinh. Được bao phủ bởi nhiều loại cây rừng quý hiếm.</p>
-                <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="/Home/Contact">Liên hệ tư vấn ngay</a>
-            </div>
-            <div class="rn-slider-overlayer"></div>
-            <img class="d-block w-100" src="~/assets/images/customs/slide_003.jpg" alt="slide">
-        </div>
-
+        }
         <div class="carousel-item">
             <div class="carousel-caption">
                 <h2 class="rn-fade-bottom mb-25">Hãy liên hệ ngay với chúng tôi để được tư vấn</h2>
                 <p class="rn-fade-bottom rn-caption-item-2 mb-35">Hành trình đa dạng cùng đội ngũ tư vấn viên nhiệt tình chắc chắn sẽ làm bạn hài lòng.</p>
-                <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="/Home/Contact">Gọi ngay 032-8989-333</a>
+                <a class="btn btn-main btn-lg rn-fade-bottom rn-caption-item-3" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer" data-tooltip="Bấm vào để liên hệ tư vấn ngay">Liên hệ ngay</a>
             </div>
             <div class="rn-slider-overlayer"></div>
-            <img class="d-block w-100" src="~/assets/images/customs/slide_004.jpg" alt="slide">
+            <img class="d-block w-100" src="~/assets/images/customs/slide_000.jpg" alt="slide">
         </div>
-
     </div>
     <!-- Slider Controls -->
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -56,7 +34,7 @@
 </div>
 <!-- End slider-->
 <!-- Car Search Form-->
-<section class="rn-search-form-big rn-section">
+<section class="rn-search-form-big rn-section" id="f_benefit" tabindex="0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -64,7 +42,7 @@
                 <!-- Section Title-->
                 <div class="rn-section-title  rn-title-bg-color-white-10 rn-title-color-white">
                     <h2 class="rn-title">Tìm kiếm chuyến đi phù hợp với bạn</h2>
-                    <span class="rn-title-bg">Luôn có khi bạn cần</span>
+                    <span class="rn-title-bg">Tìm kiếm chuyến đi phù hợp với bạn</span>
                 </div>
 
             </div>
@@ -74,7 +52,7 @@
 
                 <!-- Main Big Search Form-->
                 <div class="rn-big-search-form rn-big-search-form-dark">
-                    <form action="car-search.html">
+                    <form action="/Product/ProductsList">
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="rn-icon-input">
@@ -139,552 +117,174 @@
         </svg>
     </div>
 </section>
-
-<!-- End Car Search Form-->
-<!-- Why People Like Us Section-->
-<section class="rn-section">
+<section class="rn-section rn-section-light-gray" id="f_tours" tabindex="0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
-                <!-- Section Title-->
-                <div class="rn-section-title   ">
-                    <h2 class="rn-title">Tại sao nên book tour của chúng tôi?</h2>
-                    <p>Sự uy tín và phục vụ khách hàng tận tâm là tôn chỉ của chúng tôi.</p>
-                    <span class="rn-title-bg">Tại sao nên book tour của chúng tôi?</span>
-                </div>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>Best Price Guarantee</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>No Cancellation Fees</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>Best Quality Cars</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>Reservation Anytime</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>Personal Driver</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>Unlimited Miles</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>City to City</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-            <div class="col-lg-3 col-md-6">
-
-                <!-- Feature with dot-->
-                <div class="rn-dot-feature">
-                    <div class="rn-the-dot"></div>
-                    <div class="rn-dot-feature-info">
-                        <h3>24/7 Customer Support</h3>
-                        <p>Duis placerat tempus odio vel pretium. Vestibulum mattis viverra justo vel consequat.</p>
-                    </div>
-                </div>
-                <!-- End Feature with dot-->
-
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Why People Like Us Section-->
-<!-- Popular Cars Section-->
-<section class="rn-section rn-section-light-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-
-                <!-- Section Title-->
                 <div class="rn-section-title  rn-title-bg-color-white ">
                     <h2 class="rn-title">Các điểm đến nổi bật</h2>
                     <p>Nơi có những điểm đến đang được ưa thích và lựa chọn nhiều nhất bởi các khách hàng của chúng tôi.</p>
                     <span class="rn-title-bg">Các điểm đến nổi bật</span>
                 </div>
-
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-1.jpg" alt="Suối nước nóng U Van" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Suối nước nóng U Va</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$800</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
+            @foreach (var tour in Model.Tours.OrderByDescending(e => e.Rate))
+            {
+                <div class="col-lg-4 col-md-6" data-tooltip="Bấm vào để liên hệ tư vấn ngay">
+                    <div class="rn-car-item">
+                        <div class="rn-car-item-review">
+                            <div class="fas fa-star"></div> @tour.Rate
+                        </div>
+                        <div class="rn-car-item-thumb">
+                            <a href="@("/Product/ProductDetail?productId="+tour.Id)">
+                                <img class="img-fluid" src="@(tour.Img)" alt="@tour.Title" />
+                            </a>
+                        </div>
+                        <div class="rn-car-item-info">
+                            <h3>
+                                <a href="@("/Product/ProductDetail?productId="+tour.Id)">@tour.Title</a>
+                            </h3>
+                            <p>@tour.Description</p>
+                            <div class="rn-car-list-n-price">
+                                @* <ul>
+                                    @foreach (var desc in tour.TourDescriptions)
+                                    {
+                                        <li>@desc.Description</li>
+                                    }
+                                </ul> *@
+                                <div style="margin-right:15px;width: 40%;">
+                                    <div>
+                                        <i class="fa fa-check"></i> @tour.Booking đã đặt
+                                    </div>
+                                    <div>
+                                        <i class="rni-suitcase"></i> Có chỗ nghỉ
+                                    </div>
+                                    <div data-tooltip="Tính từ thành phố Điện Biên Phủ">
+                                        <i class="fa fa-car"></i> Cách @tour.Traffic km
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-clock"></i> Mở cả tuần
+                                    </div>
+                                </div>
+                                <div class="rn-car-price-wrap">
+                                    <a class="rn-car-price" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer">
+                                        <span class="rn-car-price-from">Chỉ từ</span>
+                                        <span class="rn-car-price-format">
+                                            <span class="rn-car-price-amount">@(String.Format("{0:0,0}", (tour.Price ?? 0)))</span>
+                                            <span class="rn-car-price-per">VNĐ</span>
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Car Item-->
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-2.jpg" alt="Thành Bản Phủ" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Thành Bản Phủ</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$600</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Car Item-->
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-3.jpg" alt="Đèo Pha Đin" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Đèo Pha Đin</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$650</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Car Item-->
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-4.jpg" alt="Ruộng lúa chín" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Ruộng lúa chín</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$900</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Car Item-->
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-5.jpg" alt="Bảo tàng Chiến thắng Điện Biên Phủ" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Bảo tàng Chiến thắng Điện Biên Phủ</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$850</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Car Item-->
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-
-                <!-- Car Item-->
-                <div class="rn-car-item">
-                    <div class="rn-car-item-review">
-                        <div class="fas fa-star"></div> 5.0
-                    </div>
-                    <div class="rn-car-item-thumb">
-                        <a href="/Product/ProductDetail">
-                            <img class="img-fluid" src="~/assets/images/car-8.jpg" alt="Ruộng lúa chín" />
-                        </a>
-                    </div>
-                    <div class="rn-car-item-info">
-                        <h3>
-                            <a href="/Product/ProductDetail">Ruộng lúa chín</a>
-                        </h3>
-                        <p>Mauris semper nisl a massa convallis</p>
-                        <div class="rn-car-list-n-price">
-                            <ul>
-                                <li>Aliqua venandi mutat</li>
-                                <li>Plerisque nostrum</li>
-                                <li>intellegimus percurri</li>
-                            </ul>
-                            <div class="rn-car-price-wrap">
-                                <a class="rn-car-price" href="/Product/ProductDetail">
-                                    <span class="rn-car-price-from">From</span>
-                                    <span class="rn-car-price-format">
-                                        <span class="rn-car-price-amount">$800</span>
-                                        <span class="rn-car-price-per">/day</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Car Item-->
-
-            </div>
+            }
         </div>
     </div>
 </section>
-<!-- End Popular Cars Section-->
-<!-- Car Categories-->
-<section class="rn-section">
+<section class="rn-section" id="f_category" tabindex="0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
-                <!-- Section Title-->
                 <div class="rn-section-title   ">
-                    <h2 class="rn-title">Lựa chọn theo mục đích</h2>
+                    <h2 class="rn-title">Lựa chọn theo sở thích</h2>
                     <p>Nơi bạn có thể lựa chọn được chuyến đi ưng ý theo nhu cầu của mình.</p>
-                    <span class="rn-title-bg">Lựa chọn theo mục đích</span>
+                    <span class="rn-title-bg">Lựa chọn theo sở thích của bạn</span>
                 </div>
 
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
+            <div class="col-lg-3 col-6 col-md-4">
                 <div class="rn-car-type">
-                    <a href="cars.html">
+                    <a href="/Product/ProductsList">
                         <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/mail.svg" style="width: 40%;" />
-                            </i>
+                            <i class="fa fa-motorcycle" aria-hidden="true"></i>
                         </span>
-                        <span class="rn-car-type-title">Trải nghiệm, khám phá</span>
+                        <span class="rn-car-type-title">Khám phá</span>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
+            <div class="col-lg-3 col-6 col-md-4">
                 <div class="rn-car-type">
-                    <a href="cars.html">
+                    <a href="/Product/ProductsList">
                         <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/graphic-design.svg" style="width: 40%;" />
-                            </i>
+                            <i class="fa fa-umbrella" aria-hidden="true"></i>
                         </span>
-                        <span class="rn-car-type-title">Nghỉ dưỡng cùng gia đình</span>
+                        <span class="rn-car-type-title">Nghỉ dưỡng</span>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
+            <div class="col-lg-3 col-6 col-md-4">
                 <div class="rn-car-type">
-                    <a href="cars.html">
+                    <a href="/Product/ProductsList">
                         <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/game-controller.svg" style="width: 40%;" />
-                            </i>
+                            <i class="fa fa-coffee" aria-hidden="true"></i>
                         </span>
-                        <span class="rn-car-type-title">Tìm hiểu lịch sử</span>
+                        <span class="rn-car-type-title">Ẩm thực</span>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
+            <div class="col-lg-3 col-6 col-md-4">
                 <div class="rn-car-type">
-                    <a href="cars.html">
+                    <a href="/Product/ProductsList">
                         <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/web-development.svg" style="width: 40%;" />
-                            </i>
+                            <i class="fa fa-heart" aria-hidden="true"></i>
                         </span>
-                        <span class="rn-car-type-title">Mua sắm, ăn uống</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
-                <div class="rn-car-type">
-                    <a href="cars.html">
-                        <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/newspaper.svg" style="width: 40%;" />
-                            </i>
-                        </span>
-                        <span class="rn-car-type-title">Giáo dục cộng đồng</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-6 col-md-4">
-                <!-- Car Category-->
-                <div class="rn-car-type">
-                    <a href="cars.html">
-                        <span class="rn-car-type-icon">
-                            <i class="rni">
-                                <img src="~/assets/images/customs/online-learning.svg" style="width: 40%;" />
-                            </i>
-                        </span>
-                        <span class="rn-car-type-title">Mục đích khác</span>
+                        <span class="rn-car-type-title">Trải nghiệm</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End Car Categories-->
-<!-- Testimonials & Fun Fact-->
-<section class="rn-section rn-fun-fact">
+<section class="rn-section rn-fun-fact" id="f_review" tabindex="0">
     <div class="rn-section-overlayer"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-
-                <!-- Section Title-->
                 <div class="rn-section-title rn-title-pos-left rn-title-bg-color-white-10 rn-title-color-white">
                     <h2 class="rn-title">Cảm nhận của khách hàng về dịch vụ của chúng tôi</h2>
                     <span class="rn-title-bg">Cảm nhận của khách hàng</span>
                 </div>
-
-                <!-- Testimonials-->
                 <div class="rn-testimonials rn-testimonials2">
                     <div class="rn-testimonials-carousel carousel slide" id="rn-testimonials" data-ride="carousel">
                         <div class="carousel-inner">
 
-                            <!-- Testimonial Item 1-->
-                            <div class="carousel-item active">
-                                <blockquote class="rn-testimonial2-item">
-                                    <p>Các anh tư vấn rất nhiệt tình, chuyến đi rất thú vị.</p>
-                                    <footer>
-                                        <div class="rn-testimonial-author">
-                                            <strong>Linh</strong>
-                                            <p>Sinh viên, ĐH Hà Nội.</p>
-                                        </div>
-                                    </footer>
-                                </blockquote>
-                            </div>
-
-                            <!-- Testimonial Item 2-->
-                            <div class="carousel-item">
-                                <blockquote class="rn-testimonial2-item">
-                                    <p>Tôi cùng gia đình đã có những kỷ niệm thật tuyệt.</p>
-                                    <footer>
-                                        <div class="rn-testimonial-author">
-                                            <strong>Tiến</strong>
-                                            <p>Nhân viên văn phòng, Hà Nội.</p>
-                                        </div>
-                                    </footer>
-                                </blockquote>
-                            </div>
-
-                            <!-- Testimonial Item 3-->
-                            <div class="carousel-item">
-                                <blockquote class="rn-testimonial2-item">
-                                    <p>Tôi cho cả gia đình đi cùng, hai đứa nhà tôi rất thích.</p>
-                                    <footer>
-                                        <div class="rn-testimonial-author">
-                                            <strong>Trung</strong>
-                                            <p>Đống Đa, Hà Nội.</p>
-                                        </div>
-                                    </footer>
-                                </blockquote>
-                            </div>
-
-                            <!-- Testimonial Item 4-->
-                            <div class="carousel-item">
-                                <blockquote class="rn-testimonial2-item">
-                                    <p>Chuyến team building của công ty tôi rất ý nghĩa.</p>
-                                    <footer>
-                                        <div class="rn-testimonial-author">
-                                            <strong>Quý</strong>
-                                            <p>Trưởng phòng, DatViet Land.</p>
-                                        </div>
-                                    </footer>
-                                </blockquote>
-                            </div>
-
+                            @foreach (var item in Model.Reviews)
+                            {
+                                if (Model.Reviews.IndexOf(item) == 0)
+                                {
+                                    <div class="carousel-item active">
+                                        <blockquote class="rn-testimonial2-item">
+                                            <p>@item.Content</p>
+                                            <footer>
+                                                <div class="rn-testimonial-author">
+                                                    <strong>@item.Name</strong>
+                                                    <p>@item.Note</p>
+                                                </div>
+                                            </footer>
+                                        </blockquote>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <blockquote class="rn-testimonial2-item">
+                                            <p>@item.Content</p>
+                                            <footer>
+                                                <div class="rn-testimonial-author">
+                                                    <strong>@item.Name</strong>
+                                                    <p>@item.Note</p>
+                                                </div>
+                                            </footer>
+                                        </blockquote>
+                                    </div>
+                                }
+                            }
                         </div>
-                        <!-- Testimonials Slider Controls-->
                         <ol class="carousel-indicators">
                             <li class="active" data-target="#rn-testimonials" data-slide-to="0"></li>
                             <li data-target="#rn-testimonials" data-slide-to="1"></li>
@@ -693,198 +293,127 @@
                         </ol>
                     </div>
                 </div>
-                <!-- End Testimonials-->
-
             </div>
             <div class="col-lg-6">
                 <div class="row">
                     <div class="col-6">
-
-                        <!-- CountUp Item-->
                         <div class="rn-counter-item">
                             <div class="rn-counter-number-container">
-                                <span class="rn-counter-number">16</span>
-                                <span class="rn-counter-postfix">+</span>
+                                <span class="rn-counter-number">@Model.User.TourNum</span>+
                             </div>
-                            <div class="rn-counter-text">Tour sẵn sàng để lựa chọn</div>
+                            <div class="rn-counter-text">Điểm đến sẵn sàng để lựa chọn</div>
                         </div>
-
                     </div>
                     <div class="col-6">
-
-                        <!-- CountUp Item-->
                         <div class="rn-counter-item">
                             <div class="rn-counter-number-container">
-                                <span class="rn-counter-number">65</span>
-                                <span class="rn-counter-postfix">+</span>
+                                <span class="rn-counter-number">@Model.User.BookingNum</span>+
                             </div>
                             <div class="rn-counter-text">Đã book trong tháng này</div>
                         </div>
-
                     </div>
                     <div class="col-6">
 
-                        <!-- CountUp Item-->
                         <div class="rn-counter-item">
                             <div class="rn-counter-number-container">
-                                <span class="rn-counter-number">2800</span>
-                                <span class="rn-counter-postfix">+</span>
+                                <span class="rn-counter-number">@Model.User.CustomerNum</span>+
                             </div>
                             <div class="rn-counter-text">Khách hàng lựa chọn chúng tôi</div>
                         </div>
-
                     </div>
                     <div class="col-6">
-
-                        <!-- CountUp Item-->
                         <div class="rn-counter-item">
                             <div class="rn-counter-number-container">
-                                <span class="rn-counter-number">
-                                    90
-                                </span>&#x00025;
-                                <span class="rn-counter-postfix">+</span>
+                                <span class="rn-counter-number">@Model.User.SharePercent+</span>&#x00025;+
                             </div>
                             <div class="rn-counter-text">Hài lòng và giới thiệu cho bạn bè</div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End Testimonials & Fun Fact-->
-<!-- Recent New/Posts-->
-<section class="rn-section">
+<section class="rn-section" id="f_news" tabindex="0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
-                <!-- Section Title-->
                 <div class="rn-section-title">
                     <h2 class="rn-title">Tin tức và Sự kiện</h2>
-                    <p>Nơi cập nhật các thông tin, sự kiện mới nhất về du lịch.</p>
-                    <span class="rn-title-bg">Tin tức và Sự kiện</span>
+                    <p>Nơi cập nhật các thông tin, kinh nghiệm hữu ích về du lịch.</p>
+                    <span class="rn-title-bg">Tin tức và Cẩm nang du lịch</span>
                 </div>
-
             </div>
         </div>
         <div class="row rn-post-list">
-            <div class="col-md-4">
-
-                <!-- Blog Post Item (Small Size)-->
-                <div class="rn-post-item rn-post-size-sm">
-                    <div class="rn-post-item-thumb">
-                        <a href="#">
-                            <img class="img-fluid" src="~/assets/images/blog-item-sm-1.jpg" alt="Điện Biên tung chương trình kích cầu du lịch" />
-                        </a>
-                    </div>
-                    <div class="rn-post-item-header">
-                        <div class="rn-post-date">
-                            <div class="rn-post-date-inner">
-                                <div class="rn-post-date-d">31</div>
-                                <div class="rn-post-date-m-y">7, 2021</div>
-                            </div>
+            @foreach (var item in Model.News)
+            {
+                <div class="col-md-4">
+                    <div class="rn-post-item rn-post-size-sm">
+                        <div class="rn-post-item-thumb">
+                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">
+                                <img class="img-fluid" src="@(item.Img)" alt="@item.Title" />
+                            </a>
                         </div>
-                        <div class="rn-post-item-title-meta">
-                            <div class="rn-post-item-title-meta-inner">
-                                <div class="rn-post-item-meta">
-                                    <span class="rn-post-item-categories">
-                                        Ở
-                                        <a href="#">Tin tức</a>
-                                    </span>
-                                    <span class="rn-post-item-author">
-                                        Bởi
-                                        <a href="#">Trí thức trẻ</a>
-                                    </span>
+                        <div class="rn-post-item-header">
+                            <div class="rn-post-date">
+                                <div class="rn-post-date-inner">
+                                    <div class="rn-post-date-d">@item.PostDay</div>
+                                    <div class="rn-post-date-m-y">@item.PostMonth</div>
                                 </div>
-                                <h3 class="rn-post-item-title">
-                                    <a href="#">1234</a>
-                                </h3>
+                            </div>
+                            <div class="rn-post-item-title-meta">
+                                <div class="rn-post-item-title-meta-inner">
+                                    <div class="rn-post-item-meta">
+                                        <span class="rn-post-item-categories">
+                                            Ở
+                                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Site</a>
+                                        </span>
+                                        <span class="rn-post-item-author">
+                                            Bởi
+                                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Author</a>
+                                        </span>
+                                    </div>
+                                    <h3 class="rn-post-item-title">
+                                        <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Title</a>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Blog Post Item (Small Size)-->
-
-            </div>
-            <div class="col-md-4">
-
-                <!-- Blog Post Item (Small Size)-->
-                <div class="rn-post-item rn-post-size-sm">
-                    <div class="rn-post-item-thumb">
-                        <a href="#">
-                            <img class="img-fluid" src="~/assets/images/blog-item-sm-2.jpg" alt="Hannah Bronfman: Beauty Hound" />
-                        </a>
-                    </div>
-                    <div class="rn-post-item-header">
-                        <div class="rn-post-date">
-                            <div class="rn-post-date-inner">
-                                <div class="rn-post-date-d">15</div>
-                                <div class="rn-post-date-m-y">May, 2018</div>
-                            </div>
-                        </div>
-                        <div class="rn-post-item-title-meta">
-                            <div class="rn-post-item-title-meta-inner">
-                                <div class="rn-post-item-meta">
-                                    <span class="rn-post-item-categories">
-                                        Ở
-                                        <a href="#">Tin tức</a>
-                                    </span>
-                                    <span class="rn-post-item-author">
-                                        Bởi
-                                        <a href="#">John Doe</a>
-                                    </span>
-                                </div>
-                                <h3 class="rn-post-item-title">
-                                    <a href="#">Hannah Bronfman: Beauty Hound</a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Blog Post Item (Small Size)-->
-
-            </div>
-            <div class="col-md-4">
-
-                <!-- Blog Post Item (Small Size)-->
-                <div class="rn-post-item rn-post-size-sm">
-                    <div class="rn-post-item-thumb">
-                        <a href="#">
-                            <img class="img-fluid" src="~/assets/images/blog-item-sm-3.jpg" alt="Daily Report: A Busy Week Ahead" />
-                        </a>
-                    </div>
-                    <div class="rn-post-item-header">
-                        <div class="rn-post-date">
-                            <div class="rn-post-date-inner">
-                                <div class="rn-post-date-d">15</div>
-                                <div class="rn-post-date-m-y">May, 2018</div>
-                            </div>
-                        </div>
-                        <div class="rn-post-item-title-meta">
-                            <div class="rn-post-item-title-meta-inner">
-                                <div class="rn-post-item-meta">
-                                    <span class="rn-post-item-categories">
-                                        Ở
-                                        <a href="#">Tin tức</a>
-                                    </span>
-                                    <span class="rn-post-item-author">
-                                        Bởi
-                                        <a href="#">John Doe</a>
-                                    </span>
-                                </div>
-                                <h3 class="rn-post-item-title">
-                                    <a href="#">Daily Report: A Busy Week Ahead</a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Blog Post Item (Small Size)-->
-
-            </div>
+            }
         </div>
     </div>
 </section>
 <!-- End Recent New/Posts-->
+<section class="rn-section" id="f_benefit" tabindex="0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rn-section-title">
+                    <h2 class="rn-title">Tại sao nên chọn chúng tôi?</h2>
+                    <p>Sự uy tín và phục vụ khách hàng tận tâm là tôn chỉ của chúng tôi.</p>
+                    <span class="rn-title-bg">Tại sao nên chọn chúng tôi?</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var benefit in Model.Benefits)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="rn-dot-feature">
+                        <div class="rn-the-dot"></div>
+                        <div class="rn-dot-feature-info">
+                            <h3>@benefit.Title</h3>
+                            <p>@benefit.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<script>
+
+</script>

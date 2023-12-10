@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HealthTrainingWebsite.Utility
+namespace TravelDealsWebsite.Utility
 {
     public static class StringExtension
     {
@@ -30,6 +30,14 @@ namespace HealthTrainingWebsite.Utility
             }
 
             return String.Empty;
+        }
+        public static string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
     }
 }
