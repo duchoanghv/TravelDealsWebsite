@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TravelDealsWebsite.Models;
+﻿using TravelDealsWebsite.Models;
 using Dapper;
-using static Humanizer.In;
-using TravelDealsWebsite.Models;
+using Microsoft.Extensions.Primitives;
+using System.Data;
+using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace TravelDealsWebsite.BLL
 {
@@ -57,13 +55,62 @@ namespace TravelDealsWebsite.BLL
 
         public List<Tour> UpdateTour(Tour model)
         {
-            _dbContext.Execute($"update [Tour] set Title=N'{model.Title}',Description=N'{model.Description}',Img=N'{model.Img}',Rate={model.Rate},Price={model.Price},Traffic=N'{model.Traffic}',Type=N'{model.Type}',Booking={model.Booking},Note=N'{model.Note}' where Id={model.Id}");
+            var paramsList = new List<SqlParameter>()
+                {
+                     new SqlParameter(){ParameterName =  "@Title", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Title) ? model.Title : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Description", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Description) ? model.Description : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Img", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Img) ? model.Img : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@ContentImg", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.ContentImg) ? model.ContentImg : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Rate", SqlDbType= SqlDbType.Float, SqlValue = model.Rate.HasValue?model.Rate:DBNull.Value },
+                    new SqlParameter(){ParameterName =  "@Price", SqlDbType= SqlDbType.Int, SqlValue = model.Price.HasValue?model.Price:DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Traffic", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Traffic) ? model.Traffic : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Type", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Type) ? model.Type : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Booking", SqlDbType= SqlDbType.Int, SqlValue = model.Booking.HasValue?model.Booking:DBNull.Value },
+                    new SqlParameter(){ParameterName =  "@Note", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Note) ? model.Note : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@DayNumbers", SqlDbType= SqlDbType.Int, SqlValue = model.DayNumbers.HasValue?model.DayNumbers:DBNull.Value },
+                    new SqlParameter(){ParameterName =  "@Id", SqlDbType= SqlDbType.Int, SqlValue = model.Id},
+                }.ToArray();
+
+            using (var con = new SqlConnection(_dbContext.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(@"UPDATE [Tour] SET Title=@Title,Description=@Description,Img=@Img,ContentImg=@ContentImg,Rate=@Rate,Price=@Price,Traffic=@Traffic,
+                                                                    Type=@Type,Booking=@Booking,Note=@Note,DayNumbers=@DayNumbers WHERE Id=@Id", con))
+                {
+                    con.Open();
+                    cmd.Parameters.AddRange(paramsList);
+                    cmd.ExecuteNonQuery();
+                }
+            }
             return _dbContext.Query<Tour>("select * from Tour").ToList();
         }
 
         public List<Tour> AddTour(Tour model)
         {
-            _dbContext.Execute($"INSERT INTO [Tour] ([Title],[Description],[Img],[Rate],[Price],[Traffic],[Type],[Booking],[Note]) VALUES(N'{model.Title}',N'{model.Description}',N'{model.Img}',{model.Rate},{model.Price},N'{model.Traffic}',N'{model.Type}',{model.Booking},N'{model.Note}')");
+            var paramsList = new List<SqlParameter>()
+                {
+                    new SqlParameter(){ParameterName =  "@Title", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Title) ? model.Title : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Description", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Description) ? model.Description : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Img", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Img) ? model.Img : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@ContentImg", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.ContentImg) ? model.ContentImg : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Rate", SqlDbType= SqlDbType.Float, SqlValue = model.Rate.HasValue?model.Rate:DBNull.Value },
+                    new SqlParameter(){ParameterName =  "@Price", SqlDbType= SqlDbType.Int, SqlValue = model.Price.HasValue?model.Price:DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Traffic", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Traffic) ? model.Traffic : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Type", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Type) ? model.Type : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@Booking", SqlDbType= SqlDbType.Int, SqlValue = model.Booking.HasValue?model.Booking:DBNull.Value },
+                    new SqlParameter(){ParameterName =  "@Note", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Note) ? model.Note : DBNull.Value},
+                    new SqlParameter(){ParameterName =  "@DayNumbers", SqlDbType= SqlDbType.Int, SqlValue = model.DayNumbers.HasValue?model.DayNumbers:DBNull.Value },
+                }.ToArray();
+
+            using (var con = new SqlConnection(_dbContext.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(@"INSERT INTO [Tour] ([Title],[Description],[Img],[ContentImg],[Rate],[Price],[Traffic],[Type],[Booking],[Note],[DayNumbers]) 
+                                                  VALUES(@Title,@Description,@Img,@ContentImg,@Rate,@Price,@Traffic,@Type,@Booking,@Note,@DayNumbers)", con))
+                {
+                    con.Open();
+                    cmd.Parameters.AddRange(paramsList);
+                    cmd.ExecuteNonQuery();
+                }
+            }
             return _dbContext.Query<Tour>("select * from Tour").ToList();
         }
 
@@ -84,12 +131,12 @@ namespace TravelDealsWebsite.BLL
             _dbContext.Execute($"INSERT INTO [BannerSlider] ([Title],[Description],[Img]) VALUES(N'{model.Title}',N'{model.Description}',N'{model.Img}')");
             return _dbContext.Query<BannerSlider>("select * from BannerSlider").ToList();
         }
-        
+
         public List<BookContact> AddBookContact(BookContact model)
         {
             _dbContext.Execute($"INSERT INTO [BookContact] ([Name],[Phone],[Email], [Note], [RequestDate]) VALUES(N'{model.Name}',N'{model.Phone}',N'{model.Email}',N'{model.Note}', GETDATE())");
             return _dbContext.Query<BookContact>("select * from BookContact").ToList();
-        } 
+        }
 
         public List<BannerSlider> DeleteSlider(int id)
         {

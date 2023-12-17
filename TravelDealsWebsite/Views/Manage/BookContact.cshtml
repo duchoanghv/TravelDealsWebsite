@@ -80,7 +80,7 @@
                             {
                                 <tr>
                                     <th scope="col">@tour.RequestDate?.ToString("dd/MM/yyyy HH:mm:ss")</th>
-                                    <th scope="col" data-tooltip="Bấm vào để liên hệ tư vấn ngay"><a href="@("tel:"+@tour.Phone)" style="text-decoration:underline">@tour.Phone</a></th>
+                                    <th scope="col"><a data-tooltip="Bấm vào để liên hệ tư vấn ngay" href="@("tel:"+@tour.Phone)" style="text-decoration:underline">@tour.Phone</a></th>
                                     <th scope="col">@tour.Email</th>
                                     <th scope="col">@tour.Note</th>
                                 </tr>

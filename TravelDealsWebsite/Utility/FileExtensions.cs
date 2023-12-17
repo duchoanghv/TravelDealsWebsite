@@ -13,5 +13,12 @@ namespace TravelDealsWebsite.Utility
             file.CopyTo(new FileStream(webRootPath + uploadPath, FileMode.Create));
             return uploadPath;
         }
+        public static void RemoveFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
     }
 }

@@ -272,8 +272,8 @@
             </div>
         </div>
         <div class="rn-menubar">
-            <div class="container">
-                <div class="row align-items-center" style="width:110%">
+            <div class="container" style="max-width: 86%;">
+                <div class="row align-items-center">
                     <div class="col-3">
                         <!-- Logo-->
                         <a class="brand-name" href="/Home/Index">
@@ -302,21 +302,44 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="/Product/ProductsList">Phong cảnh thiên nhiên</a>
+                                            <a href="/Product/ProductsList?type=Phong cảnh thiên nhiên">Phong cảnh thiên nhiên</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsList">Di tích lịch sử</a>
+                                            <a href="/Product/ProductsList?type=Di tích lịch sử">Di tích lịch sử</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsList">Công trình kiến trúc</a>
+                                            <a href="/Product/ProductsList?type=Công trình kiến trúc">Công trình kiến trúc</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="/Home/News">
-                                        Cẩm nang du lịch
+                                    <a href="#">
+                                        Tour theo ngày
+                                        <i class="lnr lnr-chevron-down"></i>
                                     </a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Product/ProductsListByDays?dayNumbers=1">1 ngày</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Product/ProductsListByDays?dayNumbers=2">2 ngày</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Product/ProductsListByDays?dayNumbers=3">3 ngày</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Product/ProductsListByDays?dayNumbers=4">4 ngày</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Product/ProductsListByDays?dayNumbers=5">Từ 5 ngày</a>
+                                        </li>
+                                    </ul>
                                 </li>
+                                @*             <li>
+                                <a href="/Home/News">
+                                Cẩm nang du lịch
+                                </a>
+                                </li> *@
 
                                 <li>
                                     <a href="/Home/News">
@@ -327,7 +350,19 @@
                                     <a href="/Home/Service">Dịch vụ</a>
                                 </li>
                                 <li>
-                                    <a href="/Home/Contact">Liên hệ</a>
+
+                                    <a href="#">
+                                        Liên hệ
+                                        <i class="lnr lnr-chevron-down"></i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Home/Contact">Liên hệ với chúng tôi</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Home/Manage">Quản trị</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 @if (data.IsAuthenticated)
                                 {
@@ -349,9 +384,9 @@
                                             <li>
                                                 <a href="/Manage/Contact">Liên hệ</a>
                                             </li>
-                                      @*       <li>
-                                                <a href="/Manage/Review">Đánh giá</a>
-                                            </li> *@
+                                            @*       <li>
+                                        <a href="/Manage/Review">Đánh giá</a>
+                                        </li> *@
                                             <li>
                                                 <a href="/Manage/Banner">Slide giới thiệu</a>
                                             </li>
@@ -359,12 +394,6 @@
                                                 <a href="/Manage/News"> Tin tức</a>
                                             </li>
                                         </ul>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <a href="/Home/Manage">Quản trị</a>
                                     </li>
                                 }
                             </ul>
@@ -557,6 +586,16 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-messenger" viewBox="0 0 16 16">
                             <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76m5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z" />
                         </svg>
+                    </i>
+                </div>
+            </div>
+        </a>
+        <a id="msnnr_btn_anc" href="@("https://zalo.me/"+@data.Contact.Phone)" class="top-of-site-link" data-visible="true" style="bottom: 10.8rem;right: .9rem;" target="_blank" rel="noopener noreferrer">
+
+            <div id="messenger_button">
+                <div class="messenger_column btn_icon">
+                    <i id="msngr_btn_icon">
+                        <img src="~/assets/images/customs/icons8-zalo.svg" />
                     </i>
                 </div>
             </div>

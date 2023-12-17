@@ -1026,7 +1026,7 @@ menubar nav.rn-navbar-container .row {
     position: relative;
     padding-top: 350px;
     padding-bottom: 0;
-    background-image: url('../images/page/page_006.jpg');
+    /*background-image: url('../images/page/page_006.jpg');*/
     background-attachment: fixed;
 }
 

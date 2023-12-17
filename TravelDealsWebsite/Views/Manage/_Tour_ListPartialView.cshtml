@@ -5,13 +5,14 @@
         <tr>
             <th scope="col"></th>
             <th scope="col">Tên điểm đến</th>
-            <th scope="col" style="width:20%">Mô tả</th>
+            <th scope="col" style="width:20%">Tóm tắt</th>
             <th scope="col">Đánh giá</th>
             <th scope="col">Giá tourVNĐ</th>
             <th scope="col">Khoảng cách</th>
             <th scope="col">Loại</th>
             <th scope="col">Lượt book</th>
-            <th scope="col" style="width:30%">Ghi chú</th>
+            <th scope="col">Số ngày</th>
+            <th scope="col" style="width:50%">Nội dung</th>
         </tr>
     </thead>
     <tbody>
@@ -33,13 +34,14 @@
                     </button>
                 </th>
                 <th scope="col">@tour.Title</th>
-                <th scope="col">@tour.Description</th>
+                <th scope="col" style="white-space:pre-wrap;">@tour.Description</th>
                 <th scope="col">@tour.Rate</th>
                 <th scope="col">@(String.Format("{0:0,0}", (tour.Price ?? 0)))</th>
                 <th scope="col">@tour.Traffic</th>
                 <th scope="col">@tour.Type</th>
                 <th scope="col">@tour.Booking</th>
-                <th scope="col">@tour.Note</th>
+                <th scope="col">@tour.DayNumbers</th>
+                <th scope="col" style="white-space:pre-wrap;">@tour.Note</th>
             </tr>
         }
     </tbody>

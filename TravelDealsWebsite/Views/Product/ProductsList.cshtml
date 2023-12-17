@@ -1,4 +1,9 @@
 ﻿@model MainData
+
+@{
+    int dayNumbers = ViewData["dayNumbers"] != null ? (int)ViewData["dayNumbers"] : 1;
+    string type = ViewData["type"] != null ? (string)ViewData["type"] : "Phong cảnh thiên nhiên";
+}
 <!-- Page Title-->
 <div class="rn-page-title" id="rn-page-productslist">
     <div class="rn-pt-overlayer"></div>
@@ -24,7 +29,7 @@
                 <div class="rn-car-search-filters">
                     <div class="rn-car-search-filter-item">
                         <label>Loại điểm đến:</label>
-                        <select>
+                        <select id="sel-type" onchange="ChangeType()">
                             <option value="Phong cảnh thiên nhiên">Phong cảnh thiên nhiên</option>
                             <option value="Di tích lịch sử">Di tích lịch sử</option>
                             <option value="Công trình kiến trúc">Công trình kiến trúc</option>
@@ -32,14 +37,24 @@
                         </select>
                     </div>
                     <div class="rn-car-search-filter-item">
-                        <label>Số người:</label>
-                        <select>
-                            <option value="Một mình">Một mình</option>
-                            <option value="Cặp đôi">Cặp đôi</option>
-                            <option value="Dưới 10 người">Dưới 10 người</option>
-                            <option value="Khách đoàn">Khách đoàn</option>
+                        <label>Số ngày:</label>
+                        <select id="sel-day-numbers" onchange="ChangeDayNumbers()">
+                            <option value="1">1 ngày</option>
+                            <option value="2">2 ngày</option>
+                            <option value="3">3 ngày</option>
+                            <option value="4">4 ngày</option>
+                            <option value="5">Từ 5 ngày</option>
                         </select>
                     </div>
+                    @*  <div class="rn-car-search-filter-item">
+                    <label>Số người:</label>
+                    <select>
+                    <option value="Một mình">Một mình</option>
+                    <option value="Cặp đôi">Cặp đôi</option>
+                    <option value="Dưới 10 người">Dưới 10 người</option>
+                    <option value="Khách đoàn">Khách đoàn</option>
+                    </select>
+                    </div> *@
                     <div class="rn-car-search-filter-item rn-csf-item-last">
                         <label>Sắp xếp theo:</label>
                         <select>
@@ -75,7 +90,7 @@
                                 </div>
                                 <a href="@("/Product/ProductDetail?productId="+tour.Id)">@(Math.Round(tour.Rate ?? 0)) Nhận xét</a>
                             </div>
-                            <p>@tour.Description</p>
+                            <p style="white-space:pre-wrap;">@tour.Description</p>
                             <div class="rn-car-meta">
                                 <span>
                                     <i class="fa fa-check"></i> @tour.Booking đã đặt
@@ -87,7 +102,7 @@
                                     <i class="fa fa-car"></i> Cách @tour.Traffic km
                                 </span>
                                 <span>
-                                    <i class="fa fa-clock"></i> Mở cả tuần
+                                    <i class="fa fa-calendar"></i> @tour.DayNumbers ngày
                                 </span>
                             </div>
                             <a class="rn-car-more-info" href="@("/Product/ProductDetail?productId="+tour.Id)">Thông tin thêm</a>
@@ -97,7 +112,7 @@
                                 <span>@(String.Format("{0:0,0}", (tour.Price ?? 0)))</span> VNĐ
                             </div>
                             <div class="rn-car-price">
-                                <span>(giá cũ @(String.Format("{0:0,0}", (tour.Price ?? 0)*1.5)))</span>
+                                <span>(giá cũ @(String.Format("{0:0,0}", (tour.Price ?? 0) * 1.5)))</span>
                             </div>
                             <a class="btn btn-main btn-lg btn-shadow" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer" data-tooltip="Bấm vào để liên hệ tư vấn ngay">Đặt ngay</a>
                         </div>
@@ -110,4 +125,25 @@
         </div>
     </div>
 </div>
+<script>
+    function docReady(fn) {
+        debugger;
+        // see if DOM is already available
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            // call on next available tick
+            $('#sel-type').val('@type');
+            $('#sel-day-numbers').val('@dayNumbers');
+        }
+    }
+
+    function ChangeDayNumbers() {
+        var e = document.getElementById("sel-day-numbers");
+        window.location.href = "/Product/ProductsListByDays?dayNumbers=" + e.value;
+    }
+
+    function ChangeType() {
+        var e = document.getElementById("sel-type");
+        window.location.href = "/Product/ProductsList?type=" + e.value;
+    }
+</script>
 <!-- End Car Results-->

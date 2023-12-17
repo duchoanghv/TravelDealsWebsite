@@ -92,11 +92,20 @@ namespace TravelDealsWebsite.Controllers
         {
             InitData();
             _currentItemId = HttpContext.Session.GetInt32("CurrentItemId") ?? 0;
-            model.Img = _mainData.Tours.SingleOrDefault(e => e.Id == _currentItemId)?.Img;
+            var curentItem = _mainData.Tours.SingleOrDefault(e => e.Id == _currentItemId);
+            if (curentItem != null)
+            {
+                model.Img = curentItem.Img;
+                model.ContentImg = curentItem.ContentImg;
+            }
 
             if (model.ImgFiles != null && model.ImgFiles.Any())
             {
                 model.Img = model.ImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
+            }
+            if (model.ContentImgFiles != null && model.ContentImgFiles.Any())
+            {
+                model.ContentImg = model.ContentImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
             }
             _currentItemId = HttpContext.Session.GetInt32("CurrentItemId") ?? 0;
             if (_currentItemId > 0)
@@ -126,6 +135,8 @@ namespace TravelDealsWebsite.Controllers
         public PartialViewResult DeleteTour(int id)
         {
             _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
+            //var filePath = _mainData.Tours.SingleOrDefault(e => e.Id == id)?.Img;
+            //FileExtensions.RemoveFile(hostingEnvironment.WebRootPath + filePath);
             _mainData.Tours = _productBll.DeleteTour(id);
             HttpContext.Session.SetObjectAsJson("MainData", _mainData);
             return PartialView("_Tour_ListPartialView", _mainData);
@@ -220,7 +231,7 @@ namespace TravelDealsWebsite.Controllers
             {
                 model.Img = model.ImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "news");
             }
-          
+
             if (_currentItemId > 0)
             {
                 model.Id = _currentItemId.Value;

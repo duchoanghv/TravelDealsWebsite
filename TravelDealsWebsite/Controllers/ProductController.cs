@@ -15,12 +15,24 @@ namespace TravelDealsWebsite.Controllers
     {
         private readonly ProductBll _productBll = new ProductBll();
         private readonly IHttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
-        public IActionResult ProductsList(int type)
+        public IActionResult ProductsList(string type)
         {
             var mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
+            mainData.Tours = mainData.Tours.Where(e => e.Type == type).ToList();
             ViewData["MainData"] = mainData;
+            ViewData["type"] = type;
             ViewData["MessagerUrl"] = mainData.Contact.MessagerUrl + "?ref=" + _httpContextAccessor.HttpContext?.Request?.GetDisplayUrl();
             return View(mainData);
+        }
+
+        public IActionResult ProductsListByDays(int dayNumbers)
+        {
+            var mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
+            mainData.Tours = mainData.Tours.Where(e => e.DayNumbers == dayNumbers).ToList();
+            ViewData["MainData"] = mainData;
+            ViewData["dayNumbers"] = dayNumbers;
+            ViewData["MessagerUrl"] = mainData.Contact.MessagerUrl + "?ref=" + _httpContextAccessor.HttpContext?.Request?.GetDisplayUrl();
+            return View("ProductsList", mainData);
         }
 
         public IActionResult ProductDetail(int productId)
