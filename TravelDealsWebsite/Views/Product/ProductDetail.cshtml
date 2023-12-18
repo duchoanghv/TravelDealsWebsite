@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <p style="white-space:pre-wrap;color: darkblue;">@Model.Note</p>
+                <p style="white-space:pre-wrap;color: darkblue;">@Html.Raw(Model.Note)</p>
             </div>
             <div class="col-lg-4">
                 <!-- Check Availability-->
@@ -127,7 +127,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
             </div>
         </div>
     </div>

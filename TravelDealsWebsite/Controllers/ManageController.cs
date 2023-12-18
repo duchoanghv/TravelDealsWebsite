@@ -90,37 +90,43 @@ namespace TravelDealsWebsite.Controllers
         [HttpPost]
         public IActionResult UpdateTour(Tour model)
         {
-            InitData();
-            _currentItemId = HttpContext.Session.GetInt32("CurrentItemId") ?? 0;
-            var curentItem = _mainData.Tours.SingleOrDefault(e => e.Id == _currentItemId);
-            if (curentItem != null)
+            try
             {
-                model.Img = curentItem.Img;
-                model.ContentImg = curentItem.ContentImg;
-            }
+                InitData();
+                _currentItemId = HttpContext.Session.GetInt32("CurrentItemId") ?? 0;
+                var curentItem = _mainData.Tours.SingleOrDefault(e => e.Id == _currentItemId);
+                if (curentItem != null)
+                {
+                    model.Img = curentItem.Img;
+                    model.ContentImg = curentItem.ContentImg;
+                }
 
-            if (model.ImgFiles != null && model.ImgFiles.Any())
-            {
-                model.Img = model.ImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
-            }
-            if (model.ContentImgFiles != null && model.ContentImgFiles.Any())
-            {
-                model.ContentImg = model.ContentImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
-            }
-            _currentItemId = HttpContext.Session.GetInt32("CurrentItemId") ?? 0;
-            if (_currentItemId > 0)
-            {
-                model.Id = _currentItemId.Value;
-                _mainData.Tours = _productBll.UpdateTour(model);
-            }
-            else
-            {
-                _mainData.Tours = _productBll.AddTour(model);
-            }
+                if (model.ImgFiles != null && model.ImgFiles.Any())
+                {
+                    model.Img = model.ImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
+                }
+                if (model.ContentImgFiles != null && model.ContentImgFiles.Any())
+                {
+                    model.ContentImg = model.ContentImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
+                }
+                if (_currentItemId > 0)
+                {
+                    model.Id = _currentItemId.Value;
+                    _mainData.Tours = _productBll.UpdateTour(model);
+                }
+                else
+                {
+                    _mainData.Tours = _productBll.AddTour(model);
+                }
 
-            HttpContext.Session.SetObjectAsJson("MainData", _mainData);
-            ViewData["MainData"] = _mainData;
-            return View("Tour", _mainData);
+                HttpContext.Session.SetObjectAsJson("MainData", _mainData);
+                ViewData["MainData"] = _mainData;
+                return View("Tour", _mainData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Mess = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -129,6 +135,13 @@ namespace TravelDealsWebsite.Controllers
             HttpContext.Session.SetInt32("CurrentItemId", id ?? 0);
             _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
             return PartialView("_Tour_EditPartialView", _mainData.Tours.SingleOrDefault(e => e.Id == id) ?? new Tour());
+        }
+
+        [HttpGet]
+        public string GetTourNote(int? id)
+        {
+            _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
+            return _mainData.Tours.SingleOrDefault(e => e.Id == id)?.Note;
         }
 
         [HttpPost]

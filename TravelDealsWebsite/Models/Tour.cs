@@ -23,6 +23,15 @@ namespace TravelDealsWebsite.Models
         public List<TourDescription> TourDescriptions { get; set; } = new List<TourDescription>();
 
         [JsonIgnore]
+        public List<DayNumbers> DayNumbersList { get; set; } = new List<DayNumbers>() {
+            new DayNumbers(){Value = 1, Description = "1 ngày"},
+            new DayNumbers(){Value = 2, Description = "2 ngày"},
+            new DayNumbers(){Value = 3, Description = "3 ngày"},
+            new DayNumbers(){Value = 4, Description = "4 ngày"},
+            new DayNumbers(){Value = 5, Description = "Từ 5 ngày"},
+            };
+
+        [JsonIgnore]
         public List<IFormFile> ImgFiles { get; set; }
         [JsonIgnore]
         public List<IFormFile> ContentImgFiles { get; set; }
@@ -32,6 +41,12 @@ namespace TravelDealsWebsite.Models
     {
         public int Id { get; set; }
         public int? TourId { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class DayNumbers
+    {
+        public int Value { get; set; }
         public string Description { get; set; }
     }
 }

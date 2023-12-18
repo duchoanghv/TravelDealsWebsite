@@ -55,62 +55,24 @@ namespace TravelDealsWebsite.BLL
 
         public List<Tour> UpdateTour(Tour model)
         {
-            var paramsList = new List<SqlParameter>()
-                {
-                     new SqlParameter(){ParameterName =  "@Title", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Title) ? model.Title : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Description", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Description) ? model.Description : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Img", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Img) ? model.Img : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@ContentImg", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.ContentImg) ? model.ContentImg : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Rate", SqlDbType= SqlDbType.Float, SqlValue = model.Rate.HasValue?model.Rate:DBNull.Value },
-                    new SqlParameter(){ParameterName =  "@Price", SqlDbType= SqlDbType.Int, SqlValue = model.Price.HasValue?model.Price:DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Traffic", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Traffic) ? model.Traffic : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Type", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Type) ? model.Type : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Booking", SqlDbType= SqlDbType.Int, SqlValue = model.Booking.HasValue?model.Booking:DBNull.Value },
-                    new SqlParameter(){ParameterName =  "@Note", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Note) ? model.Note : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@DayNumbers", SqlDbType= SqlDbType.Int, SqlValue = model.DayNumbers.HasValue?model.DayNumbers:DBNull.Value },
-                    new SqlParameter(){ParameterName =  "@Id", SqlDbType= SqlDbType.Int, SqlValue = model.Id},
-                }.ToArray();
-
-            using (var con = new SqlConnection(_dbContext.ConnectionString))
+            try
             {
-                using (var cmd = new SqlCommand(@"UPDATE [Tour] SET Title=@Title,Description=@Description,Img=@Img,ContentImg=@ContentImg,Rate=@Rate,Price=@Price,Traffic=@Traffic,
-                                                                    Type=@Type,Booking=@Booking,Note=@Note,DayNumbers=@DayNumbers WHERE Id=@Id", con))
-                {
-                    con.Open();
-                    cmd.Parameters.AddRange(paramsList);
-                    cmd.ExecuteNonQuery();
-                }
+                _dbContext.Execute(@"UPDATE [Tour] SET Title=@Title,Description=@Description,Img=@Img,ContentImg=@ContentImg,Rate=@Rate,Price=@Price,Traffic=@Traffic,
+                                                       Type=@Type,Booking=@Booking,Note=@Note,DayNumbers=@DayNumbers WHERE Id=@Id", model);
+
+                return _dbContext.Query<Tour>("select * from Tour").ToList();
             }
-            return _dbContext.Query<Tour>("select * from Tour").ToList();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<Tour> AddTour(Tour model)
         {
-            var paramsList = new List<SqlParameter>()
-                {
-                    new SqlParameter(){ParameterName =  "@Title", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Title) ? model.Title : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Description", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Description) ? model.Description : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Img", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Img) ? model.Img : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@ContentImg", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.ContentImg) ? model.ContentImg : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Rate", SqlDbType= SqlDbType.Float, SqlValue = model.Rate.HasValue?model.Rate:DBNull.Value },
-                    new SqlParameter(){ParameterName =  "@Price", SqlDbType= SqlDbType.Int, SqlValue = model.Price.HasValue?model.Price:DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Traffic", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Traffic) ? model.Traffic : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Type", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Type) ? model.Type : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@Booking", SqlDbType= SqlDbType.Int, SqlValue = model.Booking.HasValue?model.Booking:DBNull.Value },
-                    new SqlParameter(){ParameterName =  "@Note", SqlDbType= SqlDbType.NVarChar, SqlValue = !string.IsNullOrEmpty(model.Note) ? model.Note : DBNull.Value},
-                    new SqlParameter(){ParameterName =  "@DayNumbers", SqlDbType= SqlDbType.Int, SqlValue = model.DayNumbers.HasValue?model.DayNumbers:DBNull.Value },
-                }.ToArray();
+            _dbContext.Execute(@"INSERT INTO [Tour] ([Title],[Description],[Img],[ContentImg],[Rate],[Price],[Traffic],[Type],[Booking],[Note],[DayNumbers]) 
+                                 VALUES (@Title,@Description,@Img,@ContentImg,@Rate,@Price,@Traffic,@Type,@Booking,@Note,@DayNumbers)", model);
 
-            using (var con = new SqlConnection(_dbContext.ConnectionString))
-            {
-                using (var cmd = new SqlCommand(@"INSERT INTO [Tour] ([Title],[Description],[Img],[ContentImg],[Rate],[Price],[Traffic],[Type],[Booking],[Note],[DayNumbers]) 
-                                                  VALUES(@Title,@Description,@Img,@ContentImg,@Rate,@Price,@Traffic,@Type,@Booking,@Note,@DayNumbers)", con))
-                {
-                    con.Open();
-                    cmd.Parameters.AddRange(paramsList);
-                    cmd.ExecuteNonQuery();
-                }
-            }
             return _dbContext.Query<Tour>("select * from Tour").ToList();
         }
 
