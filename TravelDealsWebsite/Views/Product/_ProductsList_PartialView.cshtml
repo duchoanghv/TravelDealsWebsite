@@ -1,0 +1,51 @@
+﻿@model List<Tour>
+
+@foreach (var tour in Model)
+{
+    <div class="rn-car-search-item">
+        <div class="rn-car-search-item-thumb">
+            <a href="@("/tour/"+tour.LinkUrl)">
+                <img class="img-fluid" src="@tour.Img" alt="@tour.Title" />
+            </a>
+        </div>
+        <div class="rn-car-search-item-info">
+            <h2 class="rn-car-search-item-title">
+                <a href="@("/tour/"+tour.LinkUrl)">@tour.Title</a>
+            </h2>
+            <div class="rn-car-reviews">
+                <div class="rn-car-stars">
+                    @for (int i = 0; i < Math.Round(tour.Rate ?? 0); i++)
+                    {
+                        <i class="fas fa-star"></i>
+                    }
+                </div>
+                <a href="@("/tour/"+tour.LinkUrl)">@(Math.Round(tour.Rate ?? 0)) Nhận xét</a>
+            </div>
+            <p style="white-space:pre-wrap;">@tour.Description</p>
+            <div class="rn-car-meta">
+                <span>
+                    <i class="fa fa-check"></i> @tour.Booking đã đặt
+                </span>
+                <span>
+                    <i class="rni-suitcase"></i> Có chỗ nghỉ
+                </span>
+                <span data-tooltip="Tính từ thành phố Điện Biên Phủ">
+                    <i class="fa fa-car"></i> Cách @tour.Traffic km
+                </span>
+                <span>
+                    <i class="fa fa-calendar"></i> @tour.DayNumbers ngày
+                </span>
+            </div>
+            <a class="rn-car-more-info" href="@("/tour/"+tour.LinkUrl)">Thông tin thêm</a>
+        </div>
+        <div class="rn-car-search-item-pricing">
+            <div class="rn-car-total-price">
+                <span>@(String.Format("{0:0,0}", (tour.Price ?? 0)))</span> VNĐ
+            </div>
+            <div class="rn-car-price">
+                <span>(giá cũ @(String.Format("{0:0,0}", (tour.Price ?? 0) * 1.5)))</span>
+            </div>
+            <a class="btn btn-main btn-lg btn-shadow" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer" data-tooltip="Bấm vào để liên hệ tư vấn ngay">Đặt ngay</a>
+        </div>
+    </div>
+}

@@ -30,25 +30,26 @@ namespace TravelDealsWebsite.Models
         public List<BookContact> BookContacts { get; set; } = new List<BookContact>();
         public List<Tour> Tours { get; set; } = new List<Tour>();
         public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 5;
         public List<Tour> CurrentTours
         {
             get
             {
-                return Tours.Skip(5 * (PageNumber  - 1)).Take(5).OrderBy(e => e.Title).ToList();
+                return Tours.OrderByDescending(e => e.Rate).Skip(PageSize * (PageNumber - 1)).Take(PageSize).OrderBy(e => e.Title).ToList();
             }
         }
         public List<BannerSlider> CurrentSliders
         {
             get
             {
-                return BannerSliders.Skip(5 * (PageNumber  - 1)).Take(5).OrderBy(e => e.Title).ToList();
+                return BannerSliders.OrderByDescending(e => e.Title).Skip(PageSize * (PageNumber - 1)).Take(PageSize).OrderBy(e => e.Title).ToList();
             }
         }
         public List<News> CurrentNews
         {
             get
             {
-                return News.Skip(5 * (PageNumber - 1)).Take(5).OrderBy(e => e.Title).ToList();
+                return News.OrderByDescending(e => e.Like).Skip(PageSize * (PageNumber - 1)).Take(PageSize).OrderBy(e => e.Title).ToList();
             }
         }
     }

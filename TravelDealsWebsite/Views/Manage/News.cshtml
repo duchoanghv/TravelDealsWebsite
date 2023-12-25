@@ -65,14 +65,35 @@
         else
         {
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
                     <div class="rn-contact-form">
                         <form id="frm-edit-data" action="/Manage/UpdateNews" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                            @Html.Partial("_News_EditPartialView", new News())
+                            <div id="news-edit-data">
+                                @Html.Partial("_News_EditPartialView", new News())
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rn-input-group">
+                                        <label>Mô tả</label>
+                                        <div class="rn-icon-input">
+                                            <i class="fa fa-envelope"></i>
+                                            <textarea id="news-note-textarea" name="Note" placeholder="Nội dung"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <input class="btn btn-main btn-lg btn-shadow" type="submit" value="Lưu">
+                                <input class="btn btn-main btn-lg btn-shadow" type="button" value="Nhập lại" onclick="SelectNews('')">
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div id="list-data" class="col-lg-8">
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row">
+                <div id="list-data" class="col-lg-12">
                     @Html.Partial("_News_ListPartialView", Model)
                 </div>
             </div>
@@ -81,13 +102,45 @@
 </section>
 <!-- End Page Content-->
 <script>
+    tinymce.init({
+        selector: '#news-note-textarea',
+        plugins: [
+            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+            'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+            'table', 'emoticons', 'template', 'help'
+        ],
+        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+            'forecolor backcolor emoticons | help',
+        menu: {
+            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+        },
+        menubar: 'favs file edit view insert format tools table help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    });
+
+
+</script>
+
+<script>
     function SelectNews(id) {
         $.ajax({
             url: '@Url.Action("SelectNews", "Manage")',
             method: "POST",
             data: { id: id },
             success: function (data) {
-                $("#frm-edit-data").html(data);
+                $("#news-edit-data").html(data);
+                document.getElementById('frm-edit-data').scrollIntoView();
+                tinymce.get("news-note-textarea").setContent('');
+
+                $.ajax({
+                    url: '@Url.Action("GetNewsNote", "Manage")',
+                    method: "GET",
+                    data: { id: id },
+                    success: function (data) {
+                        tinymce.get("news-note-textarea").setContent(data);
+                    }
+                })
             }
         });
     }

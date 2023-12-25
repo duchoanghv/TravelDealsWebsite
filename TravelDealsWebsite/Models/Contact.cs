@@ -22,6 +22,7 @@ namespace TravelDealsWebsite.Models
         public string WebIcon { get; set; }
         public string WebTitle { get; set; }
         public string MessagerUrl { get; set; }
+        public string BankAccount { get; set; }
 
         [JsonIgnore]
         public List<IFormFile> WebIconFiles { get; set; }

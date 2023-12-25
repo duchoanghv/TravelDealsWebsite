@@ -30,10 +30,11 @@
                     <div class="rn-car-search-filter-item">
                         <label>Loại điểm đến:</label>
                         <select id="sel-type" onchange="ChangeType()">
-                            <option value="Phong cảnh thiên nhiên">Phong cảnh thiên nhiên</option>
-                            <option value="Di tích lịch sử">Di tích lịch sử</option>
-                            <option value="Công trình kiến trúc">Công trình kiến trúc</option>
-                            <option value="Thắng cảnh tâm linh">Thắng cảnh tâm linh</option>
+                            <option value="phong-canh-thien-nhien">Phong cảnh thiên nhiên</option>
+                            <option value="di-tich-lich-su">Di tích lịch sử</option>
+                            <option value="cong-trinh-kien-truc">Công trình kiến trúc</option>
+                            <option value="thang-canh-tam-linh">Thắng cảnh tâm linh</option>
+                            <option value="khac">Khác</option>
                         </select>
                     </div>
                     <div class="rn-car-search-filter-item">
@@ -69,57 +70,12 @@
                 </div>
                 <!-- End Car Search Filters-->
                 <!-- Car Search Item-->
-                @foreach (var tour in Model.Tours)
-                {
-                    <div class="rn-car-search-item">
-                        <div class="rn-car-search-item-thumb">
-                            <a href="@("/Product/ProductDetail?productId="+tour.Id)">
-                                <img class="img-fluid" src="@tour.Img" alt="@tour.Title" />
-                            </a>
-                        </div>
-                        <div class="rn-car-search-item-info">
-                            <h2 class="rn-car-search-item-title">
-                                <a href="@("/Product/ProductDetail?productId="+tour.Id)">@tour.Title</a>
-                            </h2>
-                            <div class="rn-car-reviews">
-                                <div class="rn-car-stars">
-                                    @for (int i = 0; i < Math.Round(tour.Rate ?? 0); i++)
-                                    {
-                                        <i class="fas fa-star"></i>
-                                    }
-                                </div>
-                                <a href="@("/Product/ProductDetail?productId="+tour.Id)">@(Math.Round(tour.Rate ?? 0)) Nhận xét</a>
-                            </div>
-                            <p style="white-space:pre-wrap;">@tour.Description</p>
-                            <div class="rn-car-meta">
-                                <span>
-                                    <i class="fa fa-check"></i> @tour.Booking đã đặt
-                                </span>
-                                <span>
-                                    <i class="rni-suitcase"></i> Có chỗ nghỉ
-                                </span>
-                                <span data-tooltip="Tính từ thành phố Điện Biên Phủ">
-                                    <i class="fa fa-car"></i> Cách @tour.Traffic km
-                                </span>
-                                <span>
-                                    <i class="fa fa-calendar"></i> @tour.DayNumbers ngày
-                                </span>
-                            </div>
-                            <a class="rn-car-more-info" href="@("/Product/ProductDetail?productId="+tour.Id)">Thông tin thêm</a>
-                        </div>
-                        <div class="rn-car-search-item-pricing">
-                            <div class="rn-car-total-price">
-                                <span>@(String.Format("{0:0,0}", (tour.Price ?? 0)))</span> VNĐ
-                            </div>
-                            <div class="rn-car-price">
-                                <span>(giá cũ @(String.Format("{0:0,0}", (tour.Price ?? 0) * 1.5)))</span>
-                            </div>
-                            <a class="btn btn-main btn-lg btn-shadow" href="@(ViewData["MessagerUrl"])" target="_blank" rel="noopener noreferrer" data-tooltip="Bấm vào để liên hệ tư vấn ngay">Đặt ngay</a>
-                        </div>
-                    </div>
-                }
+                <div id="list-data">
+                    @Html.Partial("_ProductsList_PartialView", Model.CurrentTours)
+                </div>
+
                 <div class="text-center">
-                    <a class="btn btn-lg btn-outline-light mb-40" href="#">Xem thêm</a>
+                    <a class="btn btn-lg btn-outline-light mb-40" id="btn-show-more" href="#" onclick="GoPage()">Xem thêm</a>
                 </div>
             </div>
         </div>
@@ -136,14 +92,25 @@
         }
     }
 
+    function GoPage() {
+        $.ajax({
+            url: '@Url.Action("GoPage", "Product")',
+            method: "GET",
+            success: function (data) {
+                $("#list-data").html(data);
+                scrollToTarget('btn-show-more');
+            }
+        });
+    }
+
     function ChangeDayNumbers() {
         var e = document.getElementById("sel-day-numbers");
-        window.location.href = "/Product/ProductsListByDays?dayNumbers=" + e.value;
+        window.location.href = "/tourday/" + e.value;
     }
 
     function ChangeType() {
         var e = document.getElementById("sel-type");
-        window.location.href = "/Product/ProductsList?type=" + e.value;
+        window.location.href = "/tourcat/" + e.value;
     }
 </script>
 <!-- End Car Results-->

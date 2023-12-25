@@ -49,7 +49,60 @@ namespace TravelDealsWebsite.Controllers
         public IActionResult News()
         {
             InitData();
+            ViewData["NewsAll"] = _mainData.News;
+            _mainData.PageNumber = 1;
+            _mainData.PageSize = 3;
+            HttpContext.Session.SetObjectAsJson("PaggingData", _mainData);
             return View(_mainData);
+        }
+
+        [HttpGet]
+        [Route("newscat/{category?}")]
+        public IActionResult News(string category)
+        {
+            Dictionary<string, string> dics = new Dictionary<string, string>() {
+                {"diem-du-lich", "Điểm du lịch" },
+                {"kinh-nghiem", "Kinh nghiệm" },
+                {"anh-dep", "Ảnh đẹp" },
+                {"blog", "Blog" },
+                {"khac", "Khác" },
+            };
+
+            category = dics.SingleOrDefault(e => e.Key == category).Value;
+            InitData();
+            ViewData["NewsAll"] = _mainData.News;
+            if (!string.IsNullOrEmpty(category))
+                _mainData.News = _mainData.News.Where(e => e.Category == category).ToList();
+
+            _mainData.PageNumber = 1;
+            _mainData.PageSize = 3;
+            HttpContext.Session.SetObjectAsJson("PaggingData", _mainData);
+            return View(_mainData);
+        }
+
+        [HttpGet]
+        [Route("news/{linkId?}")]
+        public IActionResult DetailNews(string linkId)
+        {
+            InitData();
+            ViewData["NewsAll"] = _mainData.News;
+
+            if (!string.IsNullOrEmpty(linkId))
+                _mainData.News = _mainData.News.Where(e => e.LinkUrl == linkId).ToList();
+
+            _mainData.PageNumber = 1;
+            _mainData.PageSize = 3;
+            HttpContext.Session.SetObjectAsJson("PaggingData", _mainData);
+            return View("News", _mainData);
+        }
+
+        [HttpGet]
+        public PartialViewResult GoPageNews()
+        {
+            var mainData = HttpContext.Session.GetObjectFromJson<MainData>("PaggingData") ?? _productBll.GetAllData();
+            mainData.PageSize += 5;
+            HttpContext.Session.SetObjectAsJson("PaggingData", mainData);
+            return PartialView("_NewsList_PartialView", mainData.CurrentNews);
         }
 
         public IActionResult Manage()
@@ -72,6 +125,7 @@ namespace TravelDealsWebsite.Controllers
             _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
             ViewData["MessagerUrl"] = _mainData.Contact.MessagerUrl + "?ref=" + _httpContextAccessor.HttpContext?.Request?.GetDisplayUrl();
             ViewData["MainData"] = _mainData;
+            ViewData["CurrentUrl"] = _httpContextAccessor.HttpContext?.Request?.GetDisplayUrl();
         }
 
         public IActionResult Cart()

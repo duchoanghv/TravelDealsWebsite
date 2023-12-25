@@ -50,7 +50,7 @@ namespace TravelDealsWebsite.BLL
 
         public void UpdateContact(Contact model)
         {
-            _dbContext.Execute($"update [Contact] set Phone=N'{model.Phone}',Email=N'{model.Email}',Address=N'{model.Address}',FacebookUrl=N'{model.FacebookUrl}',TwitterUrl=N'{model.TwitterUrl}',InstagramUrl=N'{model.InstagramUrl}',TiktokUrl=N'{model.TiktokUrl}',WebIcon=N'{model.WebIcon}',WebTitle=N'{model.WebTitle}',MessagerUrl=N'{model.MessagerUrl}'");
+            _dbContext.Execute($"update [Contact] set Phone=N'{model.Phone}',Email=N'{model.Email}',Address=N'{model.Address}',FacebookUrl=N'{model.FacebookUrl}',TwitterUrl=N'{model.TwitterUrl}',InstagramUrl=N'{model.InstagramUrl}',TiktokUrl=N'{model.TiktokUrl}',WebIcon=N'{model.WebIcon}',WebTitle=N'{model.WebTitle}',MessagerUrl=N'{model.MessagerUrl}',BankAccount=N'{model.BankAccount}'");
         }
 
         public List<Tour> UpdateTour(Tour model)
@@ -58,7 +58,7 @@ namespace TravelDealsWebsite.BLL
             try
             {
                 _dbContext.Execute(@"UPDATE [Tour] SET Title=@Title,Description=@Description,Img=@Img,ContentImg=@ContentImg,Rate=@Rate,Price=@Price,Traffic=@Traffic,
-                                                       Type=@Type,Booking=@Booking,Note=@Note,DayNumbers=@DayNumbers WHERE Id=@Id", model);
+                                                       Type=@Type,Booking=@Booking,Note=@Note,DayNumbers=@DayNumbers,LinkUrl=@LinkUrl WHERE Id=@Id", model);
 
                 return _dbContext.Query<Tour>("select * from Tour").ToList();
             }
@@ -70,8 +70,8 @@ namespace TravelDealsWebsite.BLL
 
         public List<Tour> AddTour(Tour model)
         {
-            _dbContext.Execute(@"INSERT INTO [Tour] ([Title],[Description],[Img],[ContentImg],[Rate],[Price],[Traffic],[Type],[Booking],[Note],[DayNumbers]) 
-                                 VALUES (@Title,@Description,@Img,@ContentImg,@Rate,@Price,@Traffic,@Type,@Booking,@Note,@DayNumbers)", model);
+            _dbContext.Execute(@"INSERT INTO [Tour] ([Title],[Description],[Img],[ContentImg],[Rate],[Price],[Traffic],[Type],[Booking],[Note],[DayNumbers],[LinkUrl]) 
+                                 VALUES (@Title,@Description,@Img,@ContentImg,@Rate,@Price,@Traffic,@Type,@Booking,@Note,@DayNumbers,@LinkUrl)", model);
 
             return _dbContext.Query<Tour>("select * from Tour").ToList();
         }
@@ -108,13 +108,13 @@ namespace TravelDealsWebsite.BLL
 
         public List<News> UpdateNews(News model)
         {
-            _dbContext.Execute($"update [News] set Img=N'{model.Img}',PostDay=N'{model.PostDay}',PostMonth=N'{model.PostMonth}',[Title]=N'{model.Title}',Site=N'{model.Site}',[Author]=N'{model.Author}',LinkUrl=N'{model.LinkUrl}',[Description]=N'{model.Description}',[Like]=N'{model.Like}',[View]=N'{model.View}' where Id={model.Id}");
+            _dbContext.Execute($"update [News] set Img=N'{model.Img}',PostDate=N'{model.PostDate}',[Title]=N'{model.Title}',Site=N'{model.Site}',[Category]=N'{model.Category}',LinkUrl=N'{model.LinkUrl}',[Description]=N'{model.Description}',[Note]=N'{model.Note}',[Like]=N'{model.Like}',[View]=N'{model.View}' where Id={model.Id}");
             return _dbContext.Query<News>("select * from [News]").ToList();
         }
 
         public List<News> AddNews(News model)
         {
-            _dbContext.Execute($"INSERT INTO [News] ([Img],[PostDay],[PostMonth],[Title],[Site],[Author],[LinkUrl],[Description],[Like],[View]) VALUES(N'{model.Img}',N'{model.PostDay}',N'{model.PostMonth}',N'{model.Title}',N'{model.Site}',N'{model.Author}',N'{model.LinkUrl}',N'{model.Description}',N'{model.Like}',N'{model.View}')");
+            _dbContext.Execute($"INSERT INTO [News] ([Img],[PostDate],[Title],[Site],[Category],[LinkUrl],[Description],[Note],[Like],[View]) VALUES(N'{model.Img}',N'{model.PostDate}',N'{model.Title}',N'{model.Site}',N'{model.Category}',N'{model.LinkUrl}',N'{model.Description}',N'{model.Note}',N'{model.Like}',N'{model.View}')");
             return _dbContext.Query<News>("select * from [News]").ToList();
         }
 

@@ -137,7 +137,6 @@
                     method: "GET",
                     data: { id: id },
                     success: function (data) {
-                        console.log('ad ' + data);
                         tinymce.get("tour-note-textarea").setContent(data);
                     }
                 })

@@ -109,6 +109,7 @@ namespace TravelDealsWebsite.Controllers
                 {
                     model.ContentImg = model.ContentImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "tour");
                 }
+                model.LinkUrl = model.Title.GenerateLinkId();
                 if (_currentItemId > 0)
                 {
                     model.Id = _currentItemId.Value;
@@ -142,6 +143,12 @@ namespace TravelDealsWebsite.Controllers
         {
             _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
             return _mainData.Tours.SingleOrDefault(e => e.Id == id)?.Note;
+        }
+        [HttpGet]
+        public string GetNewsNote(int? id)
+        {
+            _mainData = HttpContext.Session.GetObjectFromJson<MainData>("MainData") ?? _productBll.GetAllData();
+            return _mainData.News.SingleOrDefault(e => e.Id == id)?.Note;
         }
 
         [HttpPost]
@@ -244,7 +251,8 @@ namespace TravelDealsWebsite.Controllers
             {
                 model.Img = model.ImgFiles[0].UploadFile(hostingEnvironment.WebRootPath, "news");
             }
-
+            model.LinkUrl = model.Title.GenerateLinkId();
+            model.PostDate ??= DateTime.Now;
             if (_currentItemId > 0)
             {
                 model.Id = _currentItemId.Value;

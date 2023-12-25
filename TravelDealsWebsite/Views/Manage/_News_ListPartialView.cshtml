@@ -6,10 +6,11 @@
             <th scope="col"></th>
             <th scope="col">Ngày đăng</th>
             <th scope="col">Tiêu đề</th>
-            <th scope="col">Nguồn/Tác giả</th>
-            <th scope="col" style="width:10%">Link bài</th>
-            <th scope="col" style="width:35%">Mô tả</th>
+            <th scope="col">Tóm tắt</th>
+            @* <th scope="col">Nguồn/Tác giả</th> *@
+            <th scope="col">Thể loại</th>
             <th scope="col">Like/View</th>
+            <th scope="col" style="width:65%">Nội dung</th>
         </tr>
     </thead>
     <tbody>
@@ -30,12 +31,13 @@
                         </svg>
                     </button>
                 </th>
-                <th scope="col">@($"{tour.PostDay}/{tour.PostMonth}")</th>
+                <th scope="col">@(tour.PostDate?.ToString("dd/MM/yyyy"))</th>
                 <th scope="col">@tour.Title</th>
-                <th scope="col">@($"{tour.Site}/{tour.Author}")</th>
-                <th scope="col">@tour.LinkUrl</th>
                 <th scope="col">@tour.Description</th>
+                @* <th scope="col">@($"{tour.Site}/{tour.Author}")</th> *@
+                <th scope="col">@tour.Category</th>
                 <th scope="col">@($"{tour.Like}/{tour.View}")</th>
+                <th scope="col">@tour.Note</th>
             </tr>
         }
     </tbody>

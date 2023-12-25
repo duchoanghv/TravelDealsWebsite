@@ -1,0 +1,82 @@
+﻿  @model List<News>
+
+<!-- Blog Post Item -->
+@foreach (var item in Model)
+{
+    <article class="rn-post-item rn-post-size-lg">
+        <div class="rn-post-item-thumb">
+            <a href="@($"/news/{item.LinkUrl}")">
+                <img class="img-fluid" src="@(item.Img)" alt="@item.Title" />
+            </a>
+        </div>
+        <div class="rn-post-item-header">
+            <div class="rn-post-date">
+                <div class="rn-post-date-inner">
+                    <div class="rn-post-date-d">@item.PostDay</div>
+                    <div class="rn-post-date-m-y">@item.PostMonth</div>
+                </div>
+            </div>
+            <div class="rn-post-item-title-meta">
+                <div class="rn-post-item-title-meta-inner">
+                    <div class="rn-post-item-meta">
+                        <span class="rn-post-item-author">
+                            <span>@item.Category</span>
+                        </span>
+                    </div>
+                    <h3 class="rn-post-item-title">
+                        <a href="@($"/news/{item.LinkUrl}")">@item.Title</a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="rn-post-item-body">
+            <p>@Html.Raw(item.Description)</p>
+            <p>@Html.Raw(item.Note)</p>
+        </div>
+        <div class="rn-post-item-footer">
+            <div class="rn-post-read-more">
+                <div class="rn-car-share" style="margin-top: 0px;">
+                    <ul>
+                        <li>
+                            <a href="@("https://www.facebook.com/sharer/sharer.php?u="+ViewData["CurrentUrl"])" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@("http://twitter.com/share?text=Im%20Sharing%20on%20Twitter&url=" +ViewData["CurrentUrl"])" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@("https://plus.google.com/share?url=" +ViewData["CurrentUrl"])" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
+                        </li>
+                        @*  <li>
+                    <a href="@("https://www.tiktok.com/")" target="_blank" rel="noopener noreferrer">
+                    <svg style="color: black;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+                    <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+                    </svg>
+                    </a>
+                    </li> *@
+                    </ul>
+                </div>
+            </div>
+            <ul class="rn-post-love-n-view">
+                <li>
+                    <button>
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <span>@(item.Like + "k")</span>
+                </li>
+                <li>
+                    <span class="rn-post-view-icon">
+                        <i class="far fa-eye"></i>
+                    </span>
+                    <span>@(item.View + "k")</span>
+                </li>
+            </ul>
+        </div>
+    </article>
+}
+<!-- End Blog Post Item -->

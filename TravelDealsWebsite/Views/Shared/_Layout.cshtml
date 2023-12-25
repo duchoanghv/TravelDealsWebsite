@@ -171,6 +171,7 @@
     <link rel="stylesheet" href="~/assets/libs/flatpickr/flatpickr.min.css">
     <link rel="stylesheet" href="~/assets/css/magnific-popup.css">
     <link rel="stylesheet" href="~/assets/css/style.css">
+
     <script src="https://cdn.tiny.cloud/1/5snkf743yzb1rulgf9tjoj4io4yb7jx5mcp5fdj88n5dwnsq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- Google Map JS-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPzJTNkmBcVIoPmrsa61on9lcMoFhJsY"></script>
@@ -185,7 +186,7 @@
     <header class="rn-header">
 
         <!-- Topbar-->
-        <div class="rn-topbar">
+        <div id="topbar-menu" class="rn-topbar" style="background: #3696d0eb;">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-12 col-sm-4 col-lg-2">
@@ -224,7 +225,7 @@
                                 </div>
                                 <div class="rn-info">
                                     <ul>
-                                        <li><a href="@("tel:"+@data.Contact.Phone)" class="text-hightline">@data.Contact.Phone</a></li>
+                                        <li><a href="@("tel:"+@data.Contact.Phone)" class="text-hightline" style="color:white !important">@data.Contact.Phone</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -235,7 +236,7 @@
                                 <div class="rn-info">
                                     <ul>
                                         <li>
-                                            <a href="@("mailto:"+@data.Contact.Email)" class="text-hightline" style="color: #b33aeb !important;">@data.Contact.Email</a>
+                                            <a href="@("mailto:"+@data.Contact.Email)" class="text-hightline" style="color:white !important">@data.Contact.Email</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -246,7 +247,7 @@
                                 </div>
                                 <div class="rn-info">
                                     <ul>
-                                        <li style="color: #ff8800;font-weight: bold;">@data.Contact.Address</li>
+                                        <li class="text-hightline" style="font-size: 16px; color:white !important">@data.Contact.Address</li>
                                     </ul>
                                 </div>
                             </div>
@@ -291,7 +292,7 @@
                             </button>
 
                             <!-- Main Nav Menu-->
-                            <ul class="rn-navbar" style="background-color: rgba(17, 46, 59, 0.20);">
+                            <ul class="rn-navbar" style="background-color: rgb(0 176 255 / 80%);">
                                 <li class="active">
                                     <a href="/Home/Index">Trang chủ</a>
                                 </li>
@@ -302,13 +303,19 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="/Product/ProductsList?type=Phong cảnh thiên nhiên">Phong cảnh thiên nhiên</a>
+                                            <a href="/tourcat/phong-canh-thien-nhien">Phong cảnh thiên nhiên</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsList?type=Di tích lịch sử">Di tích lịch sử</a>
+                                            <a href="/tourcat/di-tich-lich-su">Di tích lịch sử</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsList?type=Công trình kiến trúc">Công trình kiến trúc</a>
+                                            <a href="/tourcat/cong-trinh-kien-truc">Công trình kiến trúc</a>
+                                        </li>
+                                        <li>
+                                            <a href="/tourcat/thang-canh-tam-linh">Thắng cảnh tâm linh</a>
+                                        </li>
+                                        <li>
+                                            <a href="/tourcat/khác">Khác</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -319,19 +326,19 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="/Product/ProductsListByDays?dayNumbers=1">1 ngày</a>
+                                            <a href="/tourday/1">1 ngày</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsListByDays?dayNumbers=2">2 ngày</a>
+                                            <a href="/tourday/2">2 ngày</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsListByDays?dayNumbers=3">3 ngày</a>
+                                            <a href="/tourday/3">3 ngày</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsListByDays?dayNumbers=4">4 ngày</a>
+                                            <a href="/tourday/4">4 ngày</a>
                                         </li>
                                         <li>
-                                            <a href="/Product/ProductsListByDays?dayNumbers=5">Từ 5 ngày</a>
+                                            <a href="/tourday/5">Từ 5 ngày</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -520,7 +527,7 @@
                                         <div class="rn-info">
                                             <ul>
                                                 <li>
-                                                    <a href="@("tel:"+@data.Contact.Phone)" class="text-hightline">@data.Contact.Phone</a>
+                                                    <a href="@("tel:"+@data.Contact.Phone)" class="text-hightline" style="color:white !important">@data.Contact.Phone</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -532,7 +539,7 @@
                                         <div class="rn-info">
                                             <ul>
                                                 <li>
-                                                    <a href="@("mailto:"+@data.Contact.Email)" class="text-hightline" style="color: #b33aeb !important;">@data.Contact.Email</a>
+                                                    <a href="@("mailto:"+@data.Contact.Email)" class="text-hightline" style="color:white !important">@data.Contact.Email</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -543,7 +550,7 @@
                                         </div>
                                         <div class="rn-info">
                                             <ul>
-                                                <li style="color: #ff8800;font-weight: bold;">@data.Contact.Address</li>
+                                                <li class="text-hightline" style="color:white !important">@data.Contact.Address</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -551,6 +558,35 @@
                             </div>
                         </section>
                         <!-- End Widget Item-->
+
+                        <section class="rn-widget">
+                            <h2 class="rn-widget-title">Thông tin thanh toán</h2>
+                            <div class="rn-widget-content">
+                                <div class="rn-icon-contents">
+                                    <div class="rn-phone rn-icon-content">
+                                        <div class="rn-icon">
+                                            <i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                                    <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                                </svg>
+                                            </i>
+                                        </div>
+                                        <div class="rn-info">
+                                            <ul>
+                                                <li style="font-size: 16px;color:white !important">@data.Contact.BankAccount</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="rn-email rn-icon-content">
+                                        <span class="rn-pyament-methods">
+                                            <span style="font-size: 13px;">Thanh toán linh hoạt</span>
+                                            <img src="~/assets/images/payments.png" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -564,10 +600,6 @@
                         <p font-size: 0.85714rem;>Copyright &copy; HD @DateTime.Now.Year. All rights reserved.</p>
                     </div>
                     <div class="col-md-6 text-right">
-                        <span class="rn-pyament-methods">
-                            <span>Thanh toán linh hoạt</span>
-                            <img src="~/assets/images/payments.png" />
-                        </span>
                     </div>
                 </div>
             </div>
@@ -640,13 +672,33 @@
 
         // When the user clicks on the button, scroll to the top of the document
         function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
+            // document.body.scrollTop = 0;
+            // document.documentElement.scrollTop = 0;
+            scrollToTargetAdjusted('topbar-menu');
         }
 
-        function OnRenderManageView() {
-            $(window).scrollTop($('#f_category').offset().top - 20);
-            alert('login');
+        function scrollToTargetAdjusted(targetElement) {
+            var element = document.getElementById(targetElement);
+            var headerOffset = 35;
+            var elementPosition = element.getBoundingClientRect().top;
+            var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+
+        function scrollToTarget(targetElement) {
+            var element = document.getElementById(targetElement);
+            var headerOffset = 1800;
+            var elementPosition = element.getBoundingClientRect().top;
+            var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
         }
     </script>
 </body>

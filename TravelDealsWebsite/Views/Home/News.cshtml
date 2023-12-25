@@ -19,90 +19,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 rn-post-list">
-
-                <!-- Blog Post Item -->
-                @foreach (var item in Model.News.Take(3).ToList())
-                {
-                    <article class="rn-post-item rn-post-size-lg">
-                        <div class="rn-post-item-thumb">
-                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">
-                                <img class="img-fluid" src="@(item.Img)" alt="@item.Title" />
-                            </a>
-                        </div>
-                        <div class="rn-post-item-header">
-                            <div class="rn-post-date">
-                                <div class="rn-post-date-inner">
-                                    <div class="rn-post-date-d">@item.PostDay</div>
-                                    <div class="rn-post-date-m-y">@item.PostMonth</div>
-                                </div>
-                            </div>
-                            <div class="rn-post-item-title-meta">
-                                <div class="rn-post-item-title-meta-inner">
-                                    <div class="rn-post-item-meta">
-                                        <span class="rn-post-item-categories">
-                                            Ở
-                                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Site</a>
-                                        </span>
-                                        <span class="rn-post-item-author">
-                                            Bởi
-                                            <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Author</a>
-                                        </span>
-                                    </div>
-                                    <h3 class="rn-post-item-title">
-                                        <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Title</a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rn-post-item-body">
-                            <p>@item.Description</p>
-                        </div>
-                        <div class="rn-post-item-footer">
-                            <div class="rn-post-read-more">
-                                <a class="btn btn-dark" href="@(item.LinkUrl)">Đọc thêm</a>
-                            </div>
-                            <ul class="rn-post-love-n-view">
-                                <li>
-                                    <button>
-                                        <i class="fas fa-heart"></i>
-                                    </button>
-                                    <span>@(item.Like + "k")</span>
-                                </li>
-                                <li>
-                                    <span class="rn-post-view-icon">
-                                        <i class="far fa-eye"></i>
-                                    </span>
-                                    <span>@(item.View + "k")</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
-                }
-                <!-- End Blog Post Item -->
                 <!-- Post Pagination-->
-                <nav class="rn-pagination">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="rn-active" href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <div id="list-data">
+                    @Html.Partial("_NewsList_PartialView", Model.CurrentNews)
+                </div>
+
+                <div class="text-center">
+                    <a class="btn btn-lg btn-outline-light mb-40" id="btn-show-more" href="#" onclick="GoPage()">Xem thêm</a>
+                </div>
             </div>
             <div class="col-lg-4">
 
@@ -114,16 +38,19 @@
                         <div class="rn-widget-content">
                             <ul>
                                 <li>
-                                    <a href="#">Điểm du lịch</a>
+                                    <a href="/newscat/diem-du-lich">Điểm du lịch</a>
                                 </li>
                                 <li>
-                                    <a href="#">Kinh nghiệm</a>
+                                    <a href="/newscat/kinh-nghiem">Kinh nghiệm</a>
                                 </li>
                                 <li>
-                                    <a href="#">Ảnh đẹp</a>
+                                    <a href="/newscat/anh-dep">Ảnh đẹp</a>
                                 </li>
                                 <li>
-                                    <a href="#">Blog</a>
+                                    <a href="/newscat/blog">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="/newscat/khac">Khác</a>
                                 </li>
                             </ul>
                         </div>
@@ -135,29 +62,24 @@
                         <div class="rn-widget-content">
                             <ul class="rn-recent-posts">
                                 <!-- Extra Small Post-->
-                                @foreach (var item in Model.News.Skip(3).Take(3).ToList())
+                                @foreach (var item in (ViewData["NewsAll"] as List<News>).Where(e => !Model.News.Select(m => m.Id).Contains(e.Id)).Skip(0).Take(3).OrderByDescending(e => e.Like).ToList())
                                 {
                                     <li>
                                         <div class="rn-recent-post-item">
                                             <div class="rn-recent-post-item-thumb">
-                                                <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">
+                                                <a href="@($"/news/{item.LinkUrl}")">
                                                     <img class="img-fluid" src="@(item.Img)" alt="@item.Title" />
                                                 </a>
                                             </div>
                                             <div class="rn-recent-post-item-info">
                                                 <div class="rn-recent-post-item-meta">
-                                                    <span class="rn-post-item-categories">
-                                                        Ở
-                                                        <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Site</a>
-                                                    </span>
                                                     <span class="rn-post-item-author">
-                                                        Bởi
-                                                        <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Author</a>
+                                                        <span>@item.Category</span>
                                                     </span>
                                                 </div>
                                                 <div class="rn-recent-post-item-title">
                                                     <h3>
-                                                        <a href="@(item.LinkUrl)" target="_blank" rel="noopener noreferrer">@item.Title</a>
+                                                        <a href="@($"/news/{item.LinkUrl}")">@item.Title</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -192,3 +114,15 @@
     </div>
 </div>
 <!-- End Page Content-->
+<script>
+    function GoPage() {
+        $.ajax({
+            url: '@Url.Action("GoPageNews", "Home")',
+            method: "GET",
+            success: function (data) {
+                $("#list-data").html(data);
+                scrollToTarget('btn-show-more');
+            }
+        });
+    }
+</script>
